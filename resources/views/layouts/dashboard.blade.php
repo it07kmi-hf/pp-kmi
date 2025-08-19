@@ -135,7 +135,39 @@
                     <button id="toggle-sidebar-collapse" class="text-gray-600 hover:text-gray-900 hidden lg:block">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h2 class="text-xl font-semibold text-gray-800">@yield('page-title')</h2>
+
+
+
+
+                    <!-- <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                             <img src="{{ asset('images/logo-kmi.png') }}"
+                                alt="Logo PT. KAYUMEBEL"
+                                class="w-full h-full object-contain">
+                        </div>
+                        <div id="logo-text" class="fade-slide show">
+                            <h1 class="text-lg font-bold text-gray-800">PT. KMI</h1>
+                            <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }} Division Monitoring System</p>
+                        </div>
+                    </div> -->
+                    <div class="flex items-center space-x-3">
+                        <!-- Logo bulat -->
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden border border-gray-300 bg-white shadow-sm">
+                            <img src="{{ asset('images/logo-kmi.png') }}"
+                                alt="Logo PT. KAYUMEBEL"
+                                class="w-full h-full object-contain p-1">
+                        </div>
+
+                        <!-- Teks -->
+                        <div id="logo-text" class="fade-slide show leading-tight">
+                            <h1 class="text-base font-bold text-gray-800">PT. KMI</h1>
+                            <p class="text-xs text-gray-500">
+                                {{ ucfirst(auth()->user()->role) }} Division Monitoring System
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- <h2 class="text-xl font-semibold text-gray-800">@yield('page-title')</h2> -->
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-600">{{ now()->format('d M Y, H:i') }}</span>
