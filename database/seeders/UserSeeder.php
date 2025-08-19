@@ -16,42 +16,42 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'User Admin',
-            'email' => 'admin@kayumebel.com',
+            'email' => 'admin@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'admin',
         ]);
 
         User::create([
             'name' => 'User Pembahanan',
-            'email' => 'pembahanan@kayumebel.com',
+            'email' => 'pembahanan@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'pembahanan',
         ]);
 
         User::create([
             'name' => 'User Machinning',
-            'email' => 'machinning@kayumebel.com',
+            'email' => 'machinning@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'machinning',
         ]);
 
         User::create([
             'name' => 'User Asemmbling',
-            'email' => 'asemmbling@kayumebel.com',
+            'email' => 'asemmbling@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'asemmbling',
         ]);
 
         User::create([
             'name' => 'User Finishing',
-            'email' => 'finishing@kayumebel.com',
+            'email' => 'finishing@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'finishing',
         ]);
 
         User::create([
             'name' => 'User Packing',
-            'email' => 'packing@kayumebel.com',
+            'email' => 'packing@kmi.com',
             'password' => Hash::make('123admin'),
             'role' => 'packing',
         ]);
