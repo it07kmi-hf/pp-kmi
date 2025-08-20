@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ReportBuyerController extends Controller
+class AssemblingReportBuyerController extends Controller
 {
     // PASTIKAN METHOD INI ADA
     public function index()
