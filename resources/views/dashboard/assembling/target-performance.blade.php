@@ -105,565 +105,75 @@
             <h3 class="text-lg font-medium text-gray-800 mb-4">Work Center Control</h3>
             <p class="text-gray-600 mb-6">Control on/off status untuk setiap Work Center</p>
 
-            <!-- Assembling Line 1 -->
-            <div class="mb-6">
-                <h4 class="text-sm font-medium text-gray-700 mb-4">Assembling Line 1</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <!-- Lifter A -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter A</div>
-                                <div class="text-xs text-gray-500">WC-A1-01</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterA"
-                                data-status="on"
-                                onclick="toggleStatus('lifterA')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <!-- Power Icon -->
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <!-- Toggle Switch -->
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Budi Santoso</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">45 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Loop untuk Assembling Line 1 sampai 4 -->
+            @for ($line = 1; $line <= 4; $line++)
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-4">Assembling Line {{ $line }}</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- Loop untuk Lifter A sampai L -->
+                        @foreach(['A','B','C','D','E','F','G','H','I','J','K','L'] as $lifter)
+                            @php
+                                $id = "lifter{$lifter}Line{$line}";
+                                $wcCode = "WC-A{$line}-0{$loop->iteration}";
+                                $status = rand(0,1) ? 'on' : 'off'; // dummy status
+                                $bgClass = $status === 'on' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200';
+                                $textStatusColor = $status === 'on' ? 'text-green-600' : 'text-red-600';
+                                $toggleBg = $status === 'on' ? 'bg-green-500' : 'bg-red-500';
+                                $toggleTranslate = $status === 'on' ? 'translateX(14px)' : 'translateX(0)';
+                                $output = $status === 'on' ? rand(40, 60) . ' unit' : rand(10, 25) . ' unit';
+                                $outputColor = $status === 'on' ? 'text-gray-800' : 'text-red-600';
+                            @endphp
 
-                    <!-- Lifter B -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter B</div>
-                                <div class="text-xs text-gray-500">WC-A1-02</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterB"
-                                data-status="on"
-                                onclick="toggleStatus('lifterB')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
+                            <div class="border border-green-200 {{ $bgClass }} rounded-lg p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-medium text-gray-800">Lifter {{ $lifter }}</div>
+                                        <div class="text-xs text-gray-500">{{ $wcCode }}</div>
+                                    </div>
+                                    <button 
+                                        class="toggle-switch" 
+                                        data-id="{{ $id }}"
+                                        data-status="{{ $status }}"
+                                        onclick="toggleStatus('{{ $id }}')"
+                                    >
+                                        <div class="flex items-center space-x-2">
+                                            <!-- Power Icon -->
+                                            <svg class="w-4 h-4 {{ $status === 'on' ? 'text-green-600' : 'text-red-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
+                                                <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
+                                            </svg>
+                                            <!-- Toggle Switch -->
+                                            <div class="relative inline-block w-10 h-6 rounded-full {{ $toggleBg }} transition-colors duration-200 ease-in-out">
+                                                <div class="absolute inset-0 flex items-center justify-center">
+                                                    <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: {{ $toggleTranslate }};"></div>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </button>
+                                </div>
+                                <div class="mt-3 space-y-1 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Status:</span>
+                                        <span class="{{ $textStatusColor }} font-medium">{{ ucfirst($status) }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Operator:</span>
+                                        <span class="text-gray-800">Operator {{ $lifter }}{{ $line }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Output:</span>
+                                        <span class="{{ $outputColor }}">{{ $output }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Enabled:</span>
+                                        <span class="text-green-600">Ya</span>
                                     </div>
                                 </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Siti Rahayu</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">52 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter C -->
-                    <div class="border border-red-200 bg-red-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter C</div>
-                                <div class="text-xs text-gray-500">WC-A1-03</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterC"
-                                data-status="off"
-                                onclick="toggleStatus('lifterC')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-red-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(0);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-red-600 font-medium">Off</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-red-600">Ahmad Wijaya</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-red-600">28 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter D -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter D</div>
-                                <div class="text-xs text-gray-500">WC-A1-04</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterD"
-                                data-status="on"
-                                onclick="toggleStatus('lifterD')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Dewi Saritika</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">48 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter E -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter E</div>
-                                <div class="text-xs text-gray-500">WC-A1-05</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterE"
-                                data-status="on"
-                                onclick="toggleStatus('lifterE')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Rudi Hermawan</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">43 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter F -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter F</div>
-                                <div class="text-xs text-gray-500">WC-A1-06</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterF"
-                                data-status="on"
-                                onclick="toggleStatus('lifterF')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Indah Permata</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">54 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter G -->
-                    <div class="border border-red-200 bg-red-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter G</div>
-                                <div class="text-xs text-gray-500">WC-A1-07</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterG"
-                                data-status="off"
-                                onclick="toggleStatus('lifterG')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-red-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(0);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-red-600 font-medium">Off</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-red-600">Eko Prasetyo</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-red-600">25 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter H -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter H</div>
-                                <div class="text-xs text-gray-500">WC-A1-08</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterH"
-                                data-status="on"
-                                onclick="toggleStatus('lifterH')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Maya Sari</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">58 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter I -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter I</div>
-                                <div class="text-xs text-gray-500">WC-A1-09</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterI"
-                                data-status="on"
-                                onclick="toggleStatus('lifterI')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Agus Setiawan</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">46 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter J -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter J</div>
-                                <div class="text-xs text-gray-500">WC-A1-10</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterJ"
-                                data-status="on"
-                                onclick="toggleStatus('lifterJ')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Ratna Dewi</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">51 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter K -->
-                    <div class="border border-red-200 bg-red-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter K</div>
-                                <div class="text-xs text-gray-500">WC-A1-11</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterK"
-                                data-status="off"
-                                onclick="toggleStatus('lifterK')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-red-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(0);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-red-600 font-medium">Off</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-red-600">Hendro Susilo</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-red-600">18 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-red-600">Tidak</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lifter L -->
-                    <div class="border border-green-200 bg-green-50 rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-medium text-gray-800">Lifter L</div>
-                                <div class="text-xs text-gray-500">WC-A1-12</div>
-                            </div>
-                            <button 
-                                class="toggle-switch" 
-                                data-id="lifterL"
-                                data-status="on"
-                                onclick="toggleStatus('lifterL')"
-                            >
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"/>
-                                        <path d="M10 5.5a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-3 0v-1A1.5 1.5 0 0110 5.5z"/>
-                                    </svg>
-                                    <div class="relative inline-block w-10 h-6 rounded-full bg-green-500 transition-colors duration-200 ease-in-out">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <div class="w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ease-in-out" style="transform: translateX(14px);"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mt-3 space-y-1 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Status:</span>
-                                <span class="text-green-600 font-medium">On</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Operator:</span>
-                                <span class="text-gray-800">Lestari Wati</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Output:</span>
-                                <span class="text-gray-800">53 unit</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Enabled:</span>
-                                <span class="text-green-600">Ya</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
+            @endfor
         </div>
     </div>
 
