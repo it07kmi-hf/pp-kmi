@@ -160,7 +160,7 @@
 
                         <!-- Teks -->
                         <div id="logo-text" class="fade-slide show leading-tight">
-                            <h1 class="text-base font-bold text-gray-800">PT. KMI</h1>
+                            <h1 class="text-base font-bold text-gray-800">PT. Kayu Mebel Indonesia</h1>
                             <p class="text-xs text-gray-500">
                                 {{ ucfirst(auth()->user()->role) }} Division Monitoring System
                             </p>
