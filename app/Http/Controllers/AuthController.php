@@ -40,6 +40,8 @@ class AuthController extends Controller
                     return redirect()->intended('/finishing/dashboard');
                 case 'packing':
                     return redirect()->intended('/packing/dashboard');
+                case 'devisiassembling':
+                    return redirect()->intended('/devisiassembling/dashboard');
                 default:
                     return redirect()->intended('/dashboard');
             }

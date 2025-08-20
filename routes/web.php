@@ -8,6 +8,12 @@ use App\Http\Controllers\AssemblingReportBuyerController;
 use App\Http\Controllers\AssemblingTargetPerformanceController;
 use App\Http\Controllers\AssemblingLaporanController;
 
+use App\Http\Controllers\DevisiAssemblingDashboardController;
+use App\Http\Controllers\DevisiAssemblingMonitoringController;
+use App\Http\Controllers\DevisiAssemblingReportBuyerController;
+use App\Http\Controllers\DevisiAssemblingTargetPerformanceController;
+use App\Http\Controllers\DevisiAssemblingLaporanController;
+
 use App\Http\Controllers\FinishingDashboardController;
 use App\Http\Controllers\FinishingMonitoringController;
 use App\Http\Controllers\FinishingReportBuyerController;
@@ -101,10 +107,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
-
-
     // // ================= ASEMMBLING =================
     Route::get('/assembling/dashboard', [AssemblingDashboardController::class, 'assemblingDashboard'])
         ->middleware('role:assembling')
@@ -133,10 +135,34 @@ Route::middleware('auth')->group(function () {
 
 
 
+    // // ================= DEVISI ASEMMBLING =================
+    Route::get('/devisiassembling/dashboard', [DevisiAssemblingDashboardController::class, 'devisiassemblingDashboard'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.dashboard');
+
+    Route::get('/devisiassembling/monitoring-produksi', [DevisiAssemblingMonitoringController::class, 'index'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.monitoring.produksi');
+
+    // API dummy untuk ambil data berdasarkan line
+    Route::get('/devisiassembling/monitoring-produksi/{line}', [DevisiAssemblingMonitoringController::class, 'getByLine'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.monitoring.produksi.line');
+
+    Route::get('/devisiassembling/report-buyer', [DevisiAssemblingReportBuyerController::class, 'index'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.report.buyer');
+
+    Route::get('/devisiassembling/target-performance', [DevisiAssemblingTargetPerformanceController::class, 'index'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.target.performance');
+
+    Route::get('/devisiassembling/laporan-periode', [DevisiAssemblingLaporanController::class, 'index'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.laporan.periode');
 
 
-
-
+        
     // ================= FINISHING =================
     Route::get('/finishing/dashboard', [FinishingDashboardController::class, 'finishingDashboard'])
         ->middleware('role:finishing')
