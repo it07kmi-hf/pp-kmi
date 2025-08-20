@@ -60,36 +60,36 @@
                             </a>
                         </li>
 
-                        {{-- ASEMMBLING --}}
-                        @if(auth()->user()->role == 'asemmbling')
+                        {{-- ASSEMBLING --}}
+                        @if(auth()->user()->role == 'assembling')
                             <li>
-                                <a href="{{ route('asemmbling.monitoring.produksi') }}"
+                                <a href="{{ route('assembling.monitoring.produksi') }}"
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                   @if(request()->routeIs('asemmbling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                   @if(request()->routeIs('assembling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-chart-line w-5"></i>
                                     <span class="sidebar-text fade-slide show">Monitoring Produksi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('asemmbling.report.buyer') }}"
+                                <a href="{{ route('assembling.report.buyer') }}"
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                   @if(request()->routeIs('asemmbling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                   @if(request()->routeIs('assembling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-users w-5"></i>
                                     <span class="sidebar-text fade-slide show">Report per Buyer</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('asemmbling.target.performance') }}"
+                                <a href="{{ route('assembling.target.performance') }}"
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                   @if(request()->routeIs('asemmbling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                   @if(request()->routeIs('assembling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-bullseye w-5"></i>
                                     <span class="sidebar-text fade-slide show">Target & Performance</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('asemmbling.laporan.periode') }}"
+                                <a href="{{ route('assembling.laporan.periode') }}"
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                   @if(request()->routeIs('asemmbling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                   @if(request()->routeIs('assembling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-calendar-alt w-5"></i>
                                     <span class="sidebar-text fade-slide show">Laporan Periode</span>
                                 </a>
@@ -182,7 +182,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         let sidebarCollapsed = false;
 
@@ -211,6 +211,70 @@
                     setTimeout(() => { $(el).addClass('show'); }, i * 100);
                 });
             }
+        });
+    });
+</script> -->
+<script>
+    $(document).ready(function() {
+        let sidebarCollapsed = false;
+
+        // Mobile sidebar toggle
+        $('#toggle-sidebar-desktop').click(function() {
+            $('#sidebar').removeClass('-translate-x-full');
+            $('#sidebar-overlay').removeClass('hidden');
+        });
+
+        $('#toggle-sidebar-mobile, #sidebar-overlay').click(function() {
+            $('#sidebar').addClass('-translate-x-full');
+            $('#sidebar-overlay').addClass('hidden');
+        });
+
+        // Desktop collapse toggle
+        $('#toggle-sidebar-collapse').click(function() {
+            sidebarCollapsed = !sidebarCollapsed;
+
+            if (sidebarCollapsed) {
+                // Collapse sidebar
+                $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
+                $('.sidebar-text, #logo-text').removeClass('show');
+                setTimeout(() => {
+                    $('.sidebar-text, #logo-text').hide();
+                }, 300);
+
+                // Ubah ikon jadi panah kanan
+                $(this).find('i').removeClass('fa-bars').addClass('fa-arrow-right');
+            } else {
+                // Expand sidebar
+                $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
+                $('.sidebar-text, #logo-text').show();
+                $('.sidebar-text, #logo-text').each(function(i, el) {
+                    setTimeout(() => {
+                        $(el).addClass('show');
+                    }, i * 100);
+                });
+
+                // Ubah ikon kembali ke bars
+                $(this).find('i').removeClass('fa-arrow-right').addClass('fa-bars');
+            }
+        });
+
+        // Optional: Reset saat resize layar
+        let lastWidth = $(window).width();
+        $(window).on('resize', function() {
+            const currentWidth = $(window).width();
+            if (currentWidth >= 1024 && lastWidth < 1024) {
+                // Kembali ke mode desktop
+                if (!sidebarCollapsed) {
+                    $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
+                    $('#toggle-sidebar-collapse').find('i').removeClass('fa-arrow-right').addClass('fa-bars');
+                }
+                $('.sidebar-text, #logo-text').show().addClass('show');
+            } else if (currentWidth < 1024) {
+                // Mode mobile: pastikan sidebar tertutup
+                $('#sidebar').addClass('-translate-x-full');
+                $('#sidebar-overlay').addClass('hidden');
+            }
+            lastWidth = currentWidth;
         });
     });
 </script>

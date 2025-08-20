@@ -8,6 +8,23 @@ use App\Http\Controllers\ReportBuyerController;
 use App\Http\Controllers\TargetPerformanceController;
 use App\Http\Controllers\LaporanController;
 
+
+
+
+// use App\Http\Controllers\TestSAPController;
+
+// Route::get('/sap/plopro', [TestSAPController::class, 'getPloPro']);
+
+use App\Http\Controllers\TestSAPController;
+
+Route::get('/sap/plopro', [TestSAPController::class, 'getPloPro']);
+Route::get('/sap/update', [TestSAPController::class, 'syncSAPAjax']);
+
+    // Route::get('/assembling/laporan-periode', [LaporanController::class, 'index'])
+    //     ->middleware('role:assembling')
+    //     ->name('assembling.laporan.periode');
+
+
 // Public routes
 Route::get('/', function () {
     return redirect('/login');
@@ -86,26 +103,82 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:machinning')
         ->name('machinning.laporan.periode');
 
+    // // ================= ASEMMBLING =================
+    // Route::get('/asemmbling/dashboard', [DashboardController::class, 'asemmblingDashboard'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.dashboard');
+
+    // Route::get('/asemmbling/monitoring-produksi', [MonitoringController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.monitoring.produksi');
+
+    // Route::get('/asemmbling/report-buyer', [ReportBuyerController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.report.buyer');
+
+    // Route::get('/asemmbling/target-performance', [TargetPerformanceController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.target.performance');
+
+    // Route::get('/asemmbling/laporan-periode', [LaporanController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.laporan.periode');
+
     // ================= ASEMMBLING =================
-    Route::get('/asemmbling/dashboard', [DashboardController::class, 'asemmblingDashboard'])
-        ->middleware('role:asemmbling')
-        ->name('asemmbling.dashboard');
+    // Route::get('/asemmbling/dashboard', [DashboardController::class, 'asemmblingDashboard'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.dashboard');
 
-    Route::get('/asemmbling/monitoring-produksi', [MonitoringController::class, 'index'])
-        ->middleware('role:asemmbling')
-        ->name('asemmbling.monitoring.produksi');
+    // Route::get('/asemmbling/monitoring-produksi', [MonitoringController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.monitoring.produksi');
 
-    Route::get('/asemmbling/report-buyer', [ReportBuyerController::class, 'index'])
-        ->middleware('role:asemmbling')
-        ->name('asemmbling.report.buyer');
+    // // NEW: API untuk ambil data berdasarkan assembling line
+    // Route::get('/asemmbling/monitoring-produksi/{line}', [MonitoringController::class, 'getByLine'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.monitoring.produksi.line');
 
-    Route::get('/asemmbling/target-performance', [TargetPerformanceController::class, 'index'])
-        ->middleware('role:asemmbling')
-        ->name('asemmbling.target.performance');
+    // Route::get('/asemmbling/report-buyer', [ReportBuyerController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.report.buyer');
 
-    Route::get('/asemmbling/laporan-periode', [LaporanController::class, 'index'])
-        ->middleware('role:asemmbling')
-        ->name('asemmbling.laporan.periode');
+    // Route::get('/asemmbling/target-performance', [TargetPerformanceController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.target.performance');
+
+    // Route::get('/asemmbling/laporan-periode', [LaporanController::class, 'index'])
+    //     ->middleware('role:asemmbling')
+    //     ->name('asemmbling.laporan.periode');
+
+
+    // ASEMBBLING ROUTES
+    Route::get('/assembling/dashboard', [DashboardController::class, 'assemblingDashboard'])
+        ->middleware('role:assembling')
+        ->name('assembling.dashboard');
+
+    Route::get('/assembling/monitoring-produksi', [MonitoringController::class, 'index'])
+        ->middleware('role:assembling')
+        ->name('assembling.monitoring.produksi');
+
+    // API dummy untuk ambil data berdasarkan line
+    Route::get('/assembling/monitoring-produksi/{line}', [MonitoringController::class, 'getByLine'])
+        ->middleware('role:assembling')
+        ->name('assembling.monitoring.produksi.line');
+
+    Route::get('/assembling/report-buyer', [ReportBuyerController::class, 'index'])
+        ->middleware('role:assembling')
+        ->name('assembling.report.buyer');
+
+    Route::get('/assembling/target-performance', [TargetPerformanceController::class, 'index'])
+        ->middleware('role:assembling')
+        ->name('assembling.target.performance');
+
+    Route::get('/assembling/laporan-periode', [LaporanController::class, 'index'])
+        ->middleware('role:assembling')
+        ->name('assembling.laporan.periode');
+
+
+
 
     // ================= FINISHING =================
     Route::get('/finishing/dashboard', [DashboardController::class, 'finishingDashboard'])

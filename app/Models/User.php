@@ -62,9 +62,9 @@ class User extends Authenticatable
         return $this->role === 'machinning';
     }
 
-    public function isAsemmbling()
+    public function isAssembling()
     {
-        return $this->role === 'asemmbling';
+        return $this->role === 'assembling';
     }
 
     public function isFinishing()

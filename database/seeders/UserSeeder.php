@@ -36,10 +36,10 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'User Asemmbling',
-            'email' => 'asemmbling@kmi.com',
+            'name' => 'User Assembling',
+            'email' => 'assembling@kmi.com',
             'password' => Hash::make('123admin'),
-            'role' => 'asemmbling',
+            'role' => 'assembling',
         ]);
 
         User::create([

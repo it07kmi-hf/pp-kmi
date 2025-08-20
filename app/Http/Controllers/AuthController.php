@@ -34,8 +34,8 @@ class AuthController extends Controller
                     return redirect()->intended('/pembahanan/dashboard');
                 case 'machinning':
                     return redirect()->intended('/machinning/dashboard');
-                case 'asemmbling':
-                    return redirect()->intended('/asemmbling/dashboard');
+                case 'assembling':
+                    return redirect()->intended('/assembling/dashboard');
                 case 'finishing':
                     return redirect()->intended('/finishing/dashboard');
                 case 'packing':

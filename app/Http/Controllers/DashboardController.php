@@ -8,30 +8,30 @@ class DashboardController extends Controller
 {
     public function adminDashboard()
     {
-        return view('dashboard.admin');
+        return view('dashboard.admin.dashboard');
     }
     public function pembahannanDashboard()
     {
-        return view('dashboard.pembahanan');
+        return view('dashboard.pembahanan.dashboard');
     }
 
     public function machinningDashboard()
     {
-        return view('dashboard.machinning');
+        return view('dashboard.machinning.dashboard');
     }
 
-    public function asemmblingDashboard()
+    public function assemblingDashboard()
     {
-        return view('dashboard.asemmbling');
+        return view('dashboard.assembling.dashboard');
     }
 
     public function finishingDashboard()
     {
-        return view('dashboard.finishing');
+        return view('dashboard.finishing.dashboard');
     }
 
     public function packingDashboard()
     {
-        return view('dashboard.packing');
+        return view('dashboard.packing.dashboard');
     }
 }
