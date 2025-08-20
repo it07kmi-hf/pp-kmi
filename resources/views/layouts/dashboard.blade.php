@@ -78,6 +78,50 @@
                             </li>
                         @endif
 
+                        {{-- DEVISI ASSEMBLING --}}
+                        @if(auth()->user()->role == 'devisiassembling')
+                            <li>
+                                <a href="{{ route(auth()->user()->role.'.dashboard') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-home w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.monitoring.produksi') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-chart-line w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Monitoring Produksi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.report.buyer') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-users w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Report per Buyer</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.target.performance') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-bullseye w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Target & Performance</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.laporan.periode') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-calendar-alt w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Laporan Periode</span>
+                                </a>
+                            </li>
+                        @endif
+
                         {{-- FINISHING --}}
                         @if(auth()->user()->role == 'finishing')
                             <li>
