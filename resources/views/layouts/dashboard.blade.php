@@ -77,6 +77,50 @@
                                 </a>
                             </li>
                         @endif
+
+                        {{-- FINISHING --}}
+                        @if(auth()->user()->role == 'finishing')
+                            <li>
+                                <a href="{{ route(auth()->user()->role.'.dashboard') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-home w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('finishing.monitoring.produksi') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('finishing.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-industry w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Monitoring Produksi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('finishing.report.buyer') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('finishing.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-users w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Report per Buyer</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('finishing.target.performance') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('finishing.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-bullseye w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Target & Performance</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('finishing.laporan.periode') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('finishing.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-calendar-alt w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Laporan Periode</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </nav>
@@ -88,15 +132,15 @@
                         <i class="fas fa-user text-white text-sm"></i>
                     </div>
                     <div class="user-info sidebar-text fade-slide show">
-                        <p class="text-xs font-medium text-gray-800">{{ auth()->user()->name }}</p>
-                        <p class="text-[10px] text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
+                        <p class="text-sm font-medium text-gray-800">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="mt-2">
                     @csrf
                     <button type="submit" class="flex items-center space-x-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg px-3 py-2">
                         <i class="fas fa-sign-out-alt w-5"></i>
-                        <span class="logout-text sidebar-text fade-slide show text-xs">Keluar</span>
+                        <span class="logout-text sidebar-text fade-slide show">Keluar</span>
                     </button>
                 </form>
             </div>
@@ -109,24 +153,23 @@
         <header class="bg-white shadow-sm border-b border-gray-200">
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="flex items-center space-x-4">
-                    <!-- Toggle Sidebar Desktop -->
-                    <button id="toggle-sidebar-collapse" class="text-gray-600 hover:text-gray-900 hidden lg:block">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                    <!-- Toggle Sidebar Mobile -->
                     <button id="toggle-sidebar-desktop" class="text-gray-600 hover:text-gray-900 lg:hidden">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <!-- Logo & Text (selalu terlihat) -->
+                    <button id="toggle-sidebar-collapse" class="text-gray-600 hover:text-gray-900 hidden lg:block">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
                     <div class="flex items-center space-x-3">
                         <div class="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden border border-gray-300 bg-white shadow-sm">
                             <img src="{{ asset('images/logo-kmi.png') }}"
                                  alt="Logo PT. KAYUMEBEL"
                                  class="w-full h-full object-contain p-1">
                         </div>
-                        <div class="leading-tight">
+                        <div id="logo-text" class="fade-slide show leading-tight">
                             <h1 class="text-base font-bold text-gray-800">PT. Kayu Mebel Indonesia</h1>
-                            <p class="text-xs text-gray-500">Assembling Division Monitoring System</p>
+                            <p class="text-xs text-gray-500">
+                                {{ ucfirst(auth()->user()->role) }} Division Monitoring System
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -144,56 +187,60 @@
 </div>
 
 <script>
-$(document).ready(function() {
-    let sidebarCollapsed = false;
+    $(document).ready(function() {
+        let sidebarCollapsed = false;
 
-    // Mobile sidebar toggle
-    $('#toggle-sidebar-desktop').click(function() {
-        $('#sidebar').removeClass('-translate-x-full');
-        $('#sidebar-overlay').removeClass('hidden');
-    });
+        // Mobile sidebar toggle
+        $('#toggle-sidebar-desktop').click(function() {
+            $('#sidebar').removeClass('-translate-x-full');
+            $('#sidebar-overlay').removeClass('hidden');
+        });
 
-    $('#sidebar-overlay').click(function() {
-        $('#sidebar').addClass('-translate-x-full');
-        $('#sidebar-overlay').addClass('hidden');
-    });
-
-    // Desktop collapse toggle
-    $('#toggle-sidebar-collapse').click(function() {
-        sidebarCollapsed = !sidebarCollapsed;
-
-        if (sidebarCollapsed) {
-            // Collapse sidebar
-            $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
-            $('#sidebar .sidebar-text').removeClass('show');
-            setTimeout(() => { $('#sidebar .sidebar-text').hide(); }, 300);
-            // Ikon menjadi bars (sidebar tertutup)
-            $(this).find('i').removeClass('fa-times').addClass('fa-bars');
-        } else {
-            // Expand sidebar
-            $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
-            $('#sidebar .sidebar-text').show().each(function(i, el) {
-                setTimeout(() => { $(el).addClass('show'); }, i * 100);
-            });
-            // Ikon menjadi X (sidebar terbuka)
-            $(this).find('i').removeClass('fa-bars').addClass('fa-times');
-        }
-    });
-
-    // Reset saat resize layar
-    let lastWidth = $(window).width();
-    $(window).on('resize', function() {
-        const currentWidth = $(window).width();
-        if (currentWidth >= 1024 && lastWidth < 1024) {
-            if (!sidebarCollapsed) { $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64'); }
-            $('#sidebar .sidebar-text').show().addClass('show');
-        } else if (currentWidth < 1024) {
+        $('#sidebar-overlay').click(function() {
             $('#sidebar').addClass('-translate-x-full');
             $('#sidebar-overlay').addClass('hidden');
-        }
-        lastWidth = currentWidth;
+        });
+
+        // Desktop collapse toggle (ubah icon ke X saat collapse)
+        $('#toggle-sidebar-collapse').click(function() {
+            sidebarCollapsed = !sidebarCollapsed;
+
+            if (sidebarCollapsed) {
+                $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
+                $('.sidebar-text, #logo-text').removeClass('show');
+                setTimeout(() => {
+                    $('.sidebar-text, #logo-text').hide();
+                }, 300);
+                $(this).find('i').removeClass('fa-bars').addClass('fa-xmark');
+            } else {
+                $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
+                $('.sidebar-text, #logo-text').show();
+                $('.sidebar-text, #logo-text').each(function(i, el) {
+                    setTimeout(() => {
+                        $(el).addClass('show');
+                    }, i * 100);
+                });
+                $(this).find('i').removeClass('fa-xmark').addClass('fa-bars');
+            }
+        });
+
+        // Reset saat resize
+        let lastWidth = $(window).width();
+        $(window).on('resize', function() {
+            const currentWidth = $(window).width();
+            if (currentWidth >= 1024 && lastWidth < 1024) {
+                if (!sidebarCollapsed) {
+                    $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
+                    $('#toggle-sidebar-collapse').find('i').removeClass('fa-xmark').addClass('fa-bars');
+                }
+                $('.sidebar-text, #logo-text').show().addClass('show');
+            } else if (currentWidth < 1024) {
+                $('#sidebar').addClass('-translate-x-full');
+                $('#sidebar-overlay').addClass('hidden');
+            }
+            lastWidth = currentWidth;
+        });
     });
-});
 </script>
 </body>
 </html>

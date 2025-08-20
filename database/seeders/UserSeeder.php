@@ -55,5 +55,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123admin'),
             'role' => 'packing',
         ]);
+
+        User::create([
+            'name' => 'User Devisi Assembling',
+            'email' => 'devisiassembling@kmi.com',
+            'password' => Hash::make('123admin'),
+            'role' => 'devisiassembling',
+        ]);
     }
 }

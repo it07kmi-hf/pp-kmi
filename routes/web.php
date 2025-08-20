@@ -8,6 +8,12 @@ use App\Http\Controllers\AssemblingReportBuyerController;
 use App\Http\Controllers\AssemblingTargetPerformanceController;
 use App\Http\Controllers\AssemblingLaporanController;
 
+use App\Http\Controllers\FinishingDashboardController;
+use App\Http\Controllers\FinishingMonitoringController;
+use App\Http\Controllers\FinishingReportBuyerController;
+use App\Http\Controllers\FinishingTargetPerformanceController;
+use App\Http\Controllers\FinishingLaporanController;
+
 
 use App\Http\Controllers\TestSAPController;
 
@@ -93,6 +99,12 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:machinning')
         ->name('machinning.laporan.periode');
 
+
+
+
+
+
+
     // // ================= ASEMMBLING =================
     Route::get('/assembling/dashboard', [AssemblingDashboardController::class, 'assemblingDashboard'])
         ->middleware('role:assembling')
@@ -119,26 +131,72 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:assembling')
         ->name('assembling.laporan.periode');
 
+
+
+
+
+
+
     // ================= FINISHING =================
-    Route::get('/finishing/dashboard', [AssemblingDashboardController::class, 'finishingDashboard'])
+    Route::get('/finishing/dashboard', [FinishingDashboardController::class, 'finishingDashboard'])
         ->middleware('role:finishing')
         ->name('finishing.dashboard');
 
-    Route::get('/finishing/monitoring-produksi', [AssemblingMonitoringController::class, 'index'])
+    Route::get('/finishing/monitoring-produksi', [FinishingMonitoringController::class, 'index'])
         ->middleware('role:finishing')
         ->name('finishing.monitoring.produksi');
 
-    Route::get('/finishing/report-buyer', [AssemblingReportBuyerController::class, 'index'])
+    // API dummy untuk ambil data berdasarkan line
+    Route::get('/finishing/monitoring-produksi/{line}', [FinishingMonitoringController::class, 'getByLine'])
+        ->middleware('role:finishing')
+        ->name('finishing.monitoring.produksi.line');
+
+    Route::get('/finishing/report-buyer', [FinishingReportBuyerController::class, 'index'])
         ->middleware('role:finishing')
         ->name('finishing.report.buyer');
 
-    Route::get('/finishing/target-performance', [AssemblingTargetPerformanceController::class, 'index'])
+    Route::get('/finishing/target-performance', [FinishingTargetPerformanceController::class, 'index'])
         ->middleware('role:finishing')
         ->name('finishing.target.performance');
 
-    Route::get('/finishing/laporan-periode', [AssemblingLaporanController::class, 'index'])
+    Route::get('/finishing/laporan-periode', [FinishingLaporanController::class, 'index'])
         ->middleware('role:finishing')
         ->name('finishing.laporan.periode');
+
+
+
+
+
+
+
+
+    // ================= FINISHING =================
+    // Route::get('/finishing/dashboard', [FinishingDashboardController::class, 'finishingDashboard'])
+    //     ->middleware('role:finishing')
+    //     ->name('finishing.dashboard');
+
+    // Route::get('/finishing/monitoring-produksi', [FinishingMonitoringController::class, 'index'])
+    //     ->middleware('role:finishing')
+    //     ->name('finishing.monitoring.produksi');
+
+    // Route::get('/finishing/report-buyer', [FinishingReportBuyerController::class, 'index'])
+    //     ->middleware('role:finishing')
+    //     ->name('finishing.report.buyer');
+
+    // Route::get('/finishing/target-performance', [FinishingTargetPerformanceController::class, 'index'])
+    //     ->middleware('role:finishing')
+    //     ->name('finishing.target.performance');
+
+    // Route::get('/finishing/laporan-periode', [FinishingLaporanController::class, 'index'])
+    //     ->middleware('role:finishing')
+    //     ->name('finishing.laporan.periode');
+
+
+
+
+
+
+
 
     // ================= PACKING =================
     Route::get('/packing/dashboard', [AssemblingDashboardController::class, 'packingDashboard'])

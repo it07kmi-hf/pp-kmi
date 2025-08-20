@@ -30,44 +30,18 @@
     <!-- Sidebar -->
     <div id="sidebar" class="bg-white text-gray-700 sidebar-transition fixed lg:relative z-50 h-screen -translate-x-full lg:translate-x-0 w-64 lg:w-64 min-h-screen border-r border-gray-200">
         <div class="p-4 h-full flex flex-col">
-            <!-- Logo -->
-            <div class="flex items-center justify-between pl-4"> <!-- digeser kanan -->
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-leaf text-white"></i>
-                    </div>
-                    <div id="logo-text" class="fade-slide show">
-                        <h1 class="text-lg font-bold text-gray-800">PT. KMI</h1>
-                        <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }} Division</p>
-                    </div>
-                </div>
-                <button id="toggle-sidebar-mobile" class="lg:hidden text-gray-600">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
             <!-- Sidebar Menu -->
-            <nav class="mt-8 flex-1">
+            <nav class="mt-4 flex-1"> 
                 <div class="px-2">
                     <ul class="space-y-2">
-                        {{-- UNIVERSAL MENU --}}
-                        <!-- <li>
-                            <a href="{{ route(auth()->user()->role.'.dashboard') }}"
-                               class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                               @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
-                                <i class="fas fa-home w-5"></i>
-                                <span class="sidebar-text fade-slide show">Dashboard</span>
-                            </a>
-                        </li> -->
-
                         {{-- ASSEMBLING --}}
                         @if(auth()->user()->role == 'assembling')
                             <li>
                                 <a href="{{ route(auth()->user()->role.'.dashboard') }}"
-                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-home w-5"></i>
-                                    <span class="sidebar-text fade-slide show">Dashboard</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Dashboard</span>
                                 </a>
                             </li>
                             <li>
@@ -75,7 +49,7 @@
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
                                    @if(request()->routeIs('assembling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-chart-line w-5"></i>
-                                    <span class="sidebar-text fade-slide show">Monitoring Produksi</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Monitoring Produksi</span>
                                 </a>
                             </li>
                             <li>
@@ -83,7 +57,7 @@
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
                                    @if(request()->routeIs('assembling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-users w-5"></i>
-                                    <span class="sidebar-text fade-slide show">Report per Buyer</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Report per Buyer</span>
                                 </a>
                             </li>
                             <li>
@@ -91,7 +65,7 @@
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
                                    @if(request()->routeIs('assembling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-bullseye w-5"></i>
-                                    <span class="sidebar-text fade-slide show">Target & Performance</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Target & Performance</span>
                                 </a>
                             </li>
                             <li>
@@ -99,7 +73,7 @@
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
                                    @if(request()->routeIs('assembling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-calendar-alt w-5"></i>
-                                    <span class="sidebar-text fade-slide show">Laporan Periode</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Laporan Periode</span>
                                 </a>
                             </li>
                         @endif
@@ -110,21 +84,19 @@
             <!-- User Info & Logout -->
             <div class="mt-auto p-4 border-t border-gray-200">
                 <div class="flex items-center space-x-3">
-                    <!-- Avatar selalu tampil -->
                     <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
                         <i class="fas fa-user text-white text-sm"></i>
                     </div>
-                    <!-- Nama & role hilang saat collapse -->
                     <div class="user-info sidebar-text fade-slide show">
-                        <p class="text-sm font-medium text-gray-800">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
+                        <p class="text-xs font-medium text-gray-800">{{ auth()->user()->name }}</p>
+                        <p class="text-[10px] text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="mt-2">
                     @csrf
                     <button type="submit" class="flex items-center space-x-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg px-3 py-2">
                         <i class="fas fa-sign-out-alt w-5"></i>
-                        <span class="logout-text sidebar-text fade-slide show">Keluar</span>
+                        <span class="logout-text sidebar-text fade-slide show text-xs">Keluar</span>
                     </button>
                 </form>
             </div>
@@ -137,45 +109,26 @@
         <header class="bg-white shadow-sm border-b border-gray-200">
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="flex items-center space-x-4">
+                    <!-- Toggle Sidebar Desktop -->
+                    <button id="toggle-sidebar-collapse" class="text-gray-600 hover:text-gray-900 hidden lg:block">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                    <!-- Toggle Sidebar Mobile -->
                     <button id="toggle-sidebar-desktop" class="text-gray-600 hover:text-gray-900 lg:hidden">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <button id="toggle-sidebar-collapse" class="text-gray-600 hover:text-gray-900 hidden lg:block">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-
-
-
-
-                    <!-- <div class="flex items-center space-x-2">
-                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                             <img src="{{ asset('images/logo-kmi.png') }}"
-                                alt="Logo PT. KAYUMEBEL"
-                                class="w-full h-full object-contain">
-                        </div>
-                        <div id="logo-text" class="fade-slide show">
-                            <h1 class="text-lg font-bold text-gray-800">PT. KMI</h1>
-                            <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }} Division Monitoring System</p>
-                        </div>
-                    </div> -->
+                    <!-- Logo & Text (selalu terlihat) -->
                     <div class="flex items-center space-x-3">
-                        <!-- Logo bulat -->
                         <div class="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden border border-gray-300 bg-white shadow-sm">
                             <img src="{{ asset('images/logo-kmi.png') }}"
-                                alt="Logo PT. KAYUMEBEL"
-                                class="w-full h-full object-contain p-1">
+                                 alt="Logo PT. KAYUMEBEL"
+                                 class="w-full h-full object-contain p-1">
                         </div>
-
-                        <!-- Teks -->
-                        <div id="logo-text" class="fade-slide show leading-tight">
+                        <div class="leading-tight">
                             <h1 class="text-base font-bold text-gray-800">PT. Kayu Mebel Indonesia</h1>
-                            <p class="text-xs text-gray-500">
-                                {{ ucfirst(auth()->user()->role) }} Division Monitoring System
-                            </p>
+                            <p class="text-xs text-gray-500">Assembling Division Monitoring System</p>
                         </div>
                     </div>
-
-                    <!-- <h2 class="text-xl font-semibold text-gray-800">@yield('page-title')</h2> -->
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-600">{{ now()->format('d M Y, H:i') }}</span>
@@ -190,101 +143,57 @@
     </div>
 </div>
 
-<!-- <script>
-    $(document).ready(function() {
-        let sidebarCollapsed = false;
-
-        // Mobile sidebar
-        $('#toggle-sidebar-desktop').click(function() {
-            $('#sidebar').removeClass('-translate-x-full');
-            $('#sidebar-overlay').removeClass('hidden');
-        });
-        $('#toggle-sidebar-mobile, #sidebar-overlay').click(function() {
-            $('#sidebar').addClass('-translate-x-full');
-            $('#sidebar-overlay').addClass('hidden');
-        });
-
-        // Desktop collapse with animation
-        $('#toggle-sidebar-collapse').click(function() {
-            sidebarCollapsed = !sidebarCollapsed;
-            if (sidebarCollapsed) {
-                $('#sidebar').addClass('lg:w-20').removeClass('lg:w-64');
-                $('.sidebar-text, #logo-text').removeClass('show');
-                setTimeout(() => { $('.sidebar-text, #logo-text').hide(); }, 300);
-            } else {
-                $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
-                $('.sidebar-text, #logo-text').show();
-                // animasi muncul satu per satu
-                $('.sidebar-text, #logo-text').each(function(i, el) {
-                    setTimeout(() => { $(el).addClass('show'); }, i * 100);
-                });
-            }
-        });
-    });
-</script> -->
 <script>
-    $(document).ready(function() {
-        let sidebarCollapsed = false;
+$(document).ready(function() {
+    let sidebarCollapsed = false;
 
-        // Mobile sidebar toggle
-        $('#toggle-sidebar-desktop').click(function() {
-            $('#sidebar').removeClass('-translate-x-full');
-            $('#sidebar-overlay').removeClass('hidden');
-        });
+    // Mobile sidebar toggle
+    $('#toggle-sidebar-desktop').click(function() {
+        $('#sidebar').removeClass('-translate-x-full');
+        $('#sidebar-overlay').removeClass('hidden');
+    });
 
-        $('#toggle-sidebar-mobile, #sidebar-overlay').click(function() {
+    $('#sidebar-overlay').click(function() {
+        $('#sidebar').addClass('-translate-x-full');
+        $('#sidebar-overlay').addClass('hidden');
+    });
+
+    // Desktop collapse toggle
+    $('#toggle-sidebar-collapse').click(function() {
+        sidebarCollapsed = !sidebarCollapsed;
+
+        if (sidebarCollapsed) {
+            // Collapse sidebar
+            $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
+            $('#sidebar .sidebar-text').removeClass('show');
+            setTimeout(() => { $('#sidebar .sidebar-text').hide(); }, 300);
+            // Ikon menjadi bars (sidebar tertutup)
+            $(this).find('i').removeClass('fa-times').addClass('fa-bars');
+        } else {
+            // Expand sidebar
+            $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
+            $('#sidebar .sidebar-text').show().each(function(i, el) {
+                setTimeout(() => { $(el).addClass('show'); }, i * 100);
+            });
+            // Ikon menjadi X (sidebar terbuka)
+            $(this).find('i').removeClass('fa-bars').addClass('fa-times');
+        }
+    });
+
+    // Reset saat resize layar
+    let lastWidth = $(window).width();
+    $(window).on('resize', function() {
+        const currentWidth = $(window).width();
+        if (currentWidth >= 1024 && lastWidth < 1024) {
+            if (!sidebarCollapsed) { $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64'); }
+            $('#sidebar .sidebar-text').show().addClass('show');
+        } else if (currentWidth < 1024) {
             $('#sidebar').addClass('-translate-x-full');
             $('#sidebar-overlay').addClass('hidden');
-        });
-
-        // Desktop collapse toggle
-        $('#toggle-sidebar-collapse').click(function() {
-            sidebarCollapsed = !sidebarCollapsed;
-
-            if (sidebarCollapsed) {
-                // Collapse sidebar
-                $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
-                $('.sidebar-text, #logo-text').removeClass('show');
-                setTimeout(() => {
-                    $('.sidebar-text, #logo-text').hide();
-                }, 300);
-
-                // Ubah ikon jadi panah kanan
-                $(this).find('i').removeClass('fa-bars').addClass('fa-arrow-right');
-            } else {
-                // Expand sidebar
-                $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
-                $('.sidebar-text, #logo-text').show();
-                $('.sidebar-text, #logo-text').each(function(i, el) {
-                    setTimeout(() => {
-                        $(el).addClass('show');
-                    }, i * 100);
-                });
-
-                // Ubah ikon kembali ke bars
-                $(this).find('i').removeClass('fa-arrow-right').addClass('fa-bars');
-            }
-        });
-
-        // Optional: Reset saat resize layar
-        let lastWidth = $(window).width();
-        $(window).on('resize', function() {
-            const currentWidth = $(window).width();
-            if (currentWidth >= 1024 && lastWidth < 1024) {
-                // Kembali ke mode desktop
-                if (!sidebarCollapsed) {
-                    $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
-                    $('#toggle-sidebar-collapse').find('i').removeClass('fa-arrow-right').addClass('fa-bars');
-                }
-                $('.sidebar-text, #logo-text').show().addClass('show');
-            } else if (currentWidth < 1024) {
-                // Mode mobile: pastikan sidebar tertutup
-                $('#sidebar').addClass('-translate-x-full');
-                $('#sidebar-overlay').addClass('hidden');
-            }
-            lastWidth = currentWidth;
-        });
+        }
+        lastWidth = currentWidth;
     });
+});
 </script>
 </body>
 </html>
