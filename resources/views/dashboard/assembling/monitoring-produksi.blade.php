@@ -5,7 +5,6 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="container mx-auto px-4 py-6">
         <!-- Header -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div>
@@ -149,7 +148,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

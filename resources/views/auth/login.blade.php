@@ -12,7 +12,7 @@
                     alt="Logo PT. KAYUMEBEL"
                     class="w-full h-full object-contain">
             </div>
-            <h1 class="text-xl font-bold text-green-600">PT. KAYUMEBEL INDONESIA</h1>
+            <h1 class="text-xl font-bold text-green-600">PT. KAYU MEBEL INDONESIA</h1>
             <p class="text-gray-600 text-sm mt-2">Production Planning (PP)</p>
         </div>
 
