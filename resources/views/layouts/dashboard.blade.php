@@ -85,9 +85,10 @@
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 
                                    @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
                                     <i class="fas fa-home w-5"></i>
-                                    <span class="sidebar-text fade-slide show text-sm">Dashboard</span>
+                                    <span class="sidebar-text fade-slide show text-sm">Dashboard Overview</span>
                                 </a>
                             </li>
+                            <p class="text-sm font-semibold text-gray-500 uppercase mb-2">UNIT PRODUKSI</p>
                             <li>
                                 <a href="{{ route('devisiassembling.monitoring.produksi') }}"
                                    class="flex items-center space-x-3 rounded-lg px-3 py-2 

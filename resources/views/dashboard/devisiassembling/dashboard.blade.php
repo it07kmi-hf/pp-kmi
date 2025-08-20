@@ -1,249 +1,331 @@
 @extends('layouts.dashboard')
-
 @section('title', 'Dashboard Assembling')
 @section('page-title', 'Dashboard Monitoring Assembling')
-
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="flex justify-between items-center flex-wrap gap-4">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-800">Dashboard Monitoring Assembling</h1>
-            <p class="text-gray-500">Overview produksi hari ini - 19/8/2025</p>
-        </div>
-        <div class="bg-gray-50 rounded-lg shadow px-6 py-3">
-            <h3 class="text-sm font-medium text-gray-500">Total Target Harian</h3>
-            <p class="text-lg font-bold text-gray-900">$1,200,000</p>
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold text-gray-800">Assembling Monitoring</h1>
+        <div class="flex space-x-2">
+            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="dailyBtn">Harian</button>
+            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="weeklyBtn">Mingguan</button>
+            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="monthlyBtn">Bulanan</button>
+            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200 flex items-center gap-1" id="customFilterBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filter Periode Khusus
+            </button>
         </div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Total Output Value -->
-        <div class="bg-white rounded-lg shadow p-6 relative overflow-hidden">
-            <!-- Simbol dolar di pojok kanan atas -->
-            <div class="absolute top-4 right-4 text-4xl text-green-500 font-bold">$</div>
-            
-            <h3 class="text-sm font-medium text-gray-500">Total Output Value</h3>
-            <p class="text-2xl font-bold text-gray-900">$1,353,400</p>
-
-            <!-- Progress Bar -->
-            <div class="w-full bg-gray-200 h-2 rounded-full mt-3 overflow-hidden">
-                <div class="bg-black h-2 rounded-full" style="width: 100%"></div>
-            </div>
-
-            <p class="text-sm text-gray-600 mt-2">112.8% dari target</p>
-        </div>
-
-        <!-- Total Quantity -->
-        <div class="bg-white rounded-lg shadow p-6 relative overflow-hidden">
-            <!-- Icon box di pojok kanan atas -->
-            <div class="absolute top-4 right-4 text-4xl text-green-500">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    <!-- Metrics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 metric-card">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Total Output</p>
+                    <h2 class="text-2xl font-bold text-gray-800" id="totalOutput">1,632</h2>
+                    <p class="text-xs text-gray-400">pieces (Harian)</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16v2m0-2v-6m0 6h10m-10 0v-4h10v4m-10 0v-2m10 0v2" />
                 </svg>
             </div>
-            
-            <h3 class="text-sm font-medium text-gray-500">Total Quantity</h3>
-            <p class="text-2xl font-bold text-gray-900">2,174 unit</p>
-            <p class="text-sm text-green-600 mt-2">↑ +5.2% dari kemarin</p>
         </div>
-
-        <!-- Lines On Target -->
-        <div class="bg-white rounded-lg shadow p-6 relative overflow-hidden">
-            <!-- Icon checklist di pojok kanan atas -->
-            <div class="absolute top-4 right-4 text-4xl text-green-500">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 metric-card">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Total Value</p>
+                    <h2 class="text-2xl font-bold text-gray-800" id="totalValue">$131,050</h2>
+                    <p class="text-xs text-gray-400">USD (Harian)</p>
+                </div>
+                <span class="text-gray-400">$</span>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 metric-card">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Active Units</p>
+                    <h2 class="text-2xl font-bold text-gray-800" id="activeUnits">7</h2>
+                    <p class="text-xs text-gray-400">production units</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16" />
                 </svg>
             </div>
+        </div>
+    </div>
+
+    <!-- Production Unit Overview -->
+    <div class="mb-6">
+        <div class="flex items-center gap-2 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016a11.955 11.955 0 01-8.618 3.04M11 14l2 2m0 0l2-2m-2-2l-2 2m2.618-4.016A11.955 11.955 0 0112 2.944" />
+            </svg>
+            <h2 class="font-medium text-gray-700">Unit Produksi Overview</h2>
+            <span class="text-sm text-gray-500">Harian</span>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Product cards will be populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Custom Filter Modal -->
+<div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-medium text-gray-800">Filter Periode Khusus</h3>
+            <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <p class="text-sm text-gray-600 mb-4">Analisa data periode tertentu</p>
+        
+        <!-- Tab Navigation -->
+        <div class="flex border-b mb-4">
+            <button class="py-2 px-4 text-sm font-medium text-green-600 border-b-2 border-green-600 active-tab" id="monthTab">Bulan Spesifik</button>
+            <button class="py-2 px-4 text-sm font-medium text-gray-500" id="dateRangeTab">Range Tanggal</button>
+        </div>
+        
+        <!-- Bulan Spesifik Tab Content -->
+        <div id="monthTabContent" class="tab-content">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Bulan</label>
+                    <select class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="monthSelect">
+                        <option value="january">Januari</option>
+                        <option value="february">Februari</option>
+                        <option value="march">Maret</option>
+                        <option value="april">April</option>
+                        <option value="may">Mei</option>
+                        <option value="june">Juni</option>
+                        <option value="july">Juli</option>
+                        <option value="august" selected>Agustus</option>
+                        <option value="september">September</option>
+                        <option value="october">Oktober</option>
+                        <option value="november">November</option>
+                        <option value="december">Desember</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
+                    <select class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="yearSelect">
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025" selected>2025</option>
+                    </select>
+                </div>
+            </div>
             
-            <h3 class="text-sm font-medium text-gray-500">Lines On Target</h3>
-            <p class="text-2xl font-bold text-gray-900">3/4</p>
-            <div class="flex space-x-1 mt-2">
-                <div class="w-6 h-4 rounded bg-green-500"></div>
-                <div class="w-6 h-4 rounded bg-green-500"></div>
-                <div class="w-6 h-4 rounded bg-green-500"></div>
-                <div class="w-6 h-4 rounded bg-gray-300"></div>
+            <div class="flex space-x-3 mt-6">
+                <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors" id="applyMonthFilter">Terapkan Filter</button>
+                <button id="cancelFilter" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">Batal</button>
             </div>
         </div>
-    </div>
-
-    <!-- Charts -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Trend Output Mingguan -->
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-lg font-semibold text-green-600 mb-1">Trend Output Mingguan</h2>
-            <p class="text-sm text-gray-500 mb-4">Output value dan quantity per hari</p>
-            <div class="h-72">
-                <canvas id="trendChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Distribusi Output per Buyer -->
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-lg font-semibold text-green-600 mb-1">Distribusi Output per Buyer</h2>
-            <p class="text-sm text-gray-500 mb-4">Breakdown output berdasarkan buyer</p>
-            <div class="h-72">
-                <canvas id="buyerChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <!-- Performance per Assembling Line -->
-    <div class="bg-white rounded-lg shadow">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-lg font-semibold text-green-600 mb-1">Performance per Assembling Line</h2>
-            <p class="text-sm text-gray-500">Target vs actual output untuk setiap line produksi</p>
-        </div>
-        <div class="p-6 space-y-6">
-            <!-- Line 1 -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center">
-                        <span class="font-medium">Assembling Line 1</span>
-                        <svg class="w-4 h-4 ml-2 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                        </svg>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-sm font-medium text-gray-900">$309,900 / $300,000</div>
-                        <div class="text-sm text-gray-500">503 unit</div>
-                    </div>
+        
+        <!-- Date Range Tab Content -->
+        <div id="dateRangeTabContent" class="tab-content hidden">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="startDate">
                 </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div class="bg-black h-2 rounded-full" style="width: 100%"></div>
-                </div>
-                <div class="flex justify-between items-center mt-2">
-                    <p class="text-sm text-gray-600">103.3% dari target</p>
-                    <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-medium">Target Tercapai</span>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="endDate">
                 </div>
             </div>
-
-            <!-- Line 2 -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center">
-                        <span class="font-medium">Assembling Line 2</span>
-                        <svg class="w-4 h-4 ml-2 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                        </svg>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-sm font-medium text-gray-900">$390,000 / $300,000</div>
-                        <div class="text-sm text-gray-500">650 unit</div>
-                    </div>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div class="bg-black h-2 rounded-full" style="width: 100%"></div>
-                </div>
-                <div class="flex justify-between items-center mt-2">
-                    <p class="text-sm text-gray-600">130.0% dari target</p>
-                    <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-medium">Target Tercapai</span>
-                </div>
-            </div>
-
-            <!-- Line 3 -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center">
-                        <span class="font-medium">Assembling Line 3</span>
-                        <svg class="w-4 h-4 ml-2 text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                        </svg>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-sm font-medium text-gray-900">$363,500 / $300,000</div>
-                        <div class="text-sm text-gray-500">590 unit</div>
-                    </div>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div class="bg-black h-2 rounded-full" style="width: 100%"></div>
-                </div>
-                <div class="flex justify-between items-center mt-2">
-                    <p class="text-sm text-gray-600">121.2% dari target</p>
-                    <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-medium">Target Tercapai</span>
-                </div>
-            </div>
-
-            <!-- Line 4 -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center">
-                        <span class="font-medium">Assembling Line 4</span>
-                        <svg class="w-4 h-4 ml-2 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                        </svg>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-sm font-medium text-gray-900">$290,000 / $300,000</div>
-                        <div class="text-sm text-gray-500">431 unit</div>
-                    </div>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div class="bg-red-500 h-2 rounded-full" style="width: 96.7%"></div>
-                </div>
-                <div class="flex justify-between items-center mt-2">
-                    <p class="text-sm text-gray-600">96.7% dari target</p>
-                    <span class="bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">Belum Tercapai</span>
-                </div>
+            
+            <div class="flex space-x-3 mt-6">
+                <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors" id="applyDateFilter">Terapkan Filter</button>
+                <button id="cancelDateFilter" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">Batal</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Trend Output Mingguan
-    new Chart(document.getElementById('trendChart'), {
-        type: 'line',
-        data: {
-            labels: ['Senin','Selasa','Rabu','Kamis','Jumat'],
-            datasets: [{
-                label: 'Output Value',
-                data: [300000, 320000, 310000, 315000, 290000],
-                borderColor: '#000000',
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                fill: true,
-                tension: 0.4,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: { mode: 'index', intersect: false }
-            },
-            scales: {
-                y: { beginAtZero: true, ticks: { callback: v => v.toLocaleString() } }
-            }
-        }
-    });
+    // Dummy data for different time periods
+    const dummyData = {
+        daily: [
+            { name: 'Casegood D1', quantity: 268, value: '$13,400' },
+            { name: 'Casegood D2', quantity: 278, value: '$13,900' },
+            { name: 'Casegood D3', quantity: 288, value: '$14,400' },
+            { name: 'Casegood D4', quantity: 285, value: '$14,250' },
+            { name: 'Chair', quantity: 235, value: '$23,500' },
+            { name: 'Metal', quantity: 179, value: '$26,850' },
+            { name: 'Playfield', quantity: 99, value: '$24,750' }
+        ],
+        weekly: [
+            { name: 'Casegood D1', quantity: 1876, value: '$93,800' },
+            { name: 'Casegood D2', quantity: 1946, value: '$97,300' },
+            { name: 'Casegood D3', quantity: 2016, value: '$100,800' },
+            { name: 'Casegood D4', quantity: 1995, value: '$99,750' },
+            { name: 'Chair', quantity: 1645, value: '$164,500' },
+            { name: 'Metal', quantity: 1253, value: '$188,000' },
+            { name: 'Playfield', quantity: 693, value: '$173,250' }
+        ],
+        monthly: [
+            { name: 'Casegood D1', quantity: 8152, value: '$406,600' },
+            { name: 'Casegood D2', quantity: 8452, value: '$422,300' },
+            { name: 'Casegood D3', quantity: 8768, value: '$437,200' },
+            { name: 'Casegood D4', quantity: 8670, value: '$433,250' },
+            { name: 'Chair', quantity: 7145, value: '$714,500' },
+            { name: 'Metal', quantity: 5447, value: '$815,650' },
+            { name: 'Playfield', quantity: 3011, value: '$752,250' }
+        ]
+    };
 
-    // Distribusi Output per Buyer
-    new Chart(document.getElementById('buyerChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['ETHAN ALLEN','CRATE & BARREL','CENTURY','UTTERMOST','VANGUARD','BRUNSWICK','GABBY','HICKORY'],
-            datasets: [{
-                data: [15,18,12,10,10,8,7,20],
-                backgroundColor: [
-                    '#16a34a','#3b82f6','#facc15','#ef4444',
-                    '#a855f7','#14b8a6','#f472b6','#84cc16'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '70%',
-            plugins: {
-                legend: { position: 'bottom', labels: { boxWidth: 12 } }
-            }
-        }
+    let currentPeriod = 'daily';
+    let currentFilter = null;
+
+    // Initialize product grid
+    function renderProductGrid(data) {
+        const productGrid = $('#productGrid');
+        productGrid.empty();
+        
+        data.forEach(product => {
+            const productCard = `
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 product-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+                            </svg>
+                            <span class="font-medium text-gray-800">${product.name}</span>
+                        </div>
+                        <span class="text-xs text-gray-500">6 WC</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016a11.955 11.955 0 01-8.618 3.04M11 14l2 2m0 0l2-2m-2-2l-2 2m2.618-4.016A11.955 11.955 0 0112 2.944" />
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-500">Quantity</p>
+                            <p class="font-semibold text-gray-800">${product.quantity}</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex justify-center mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                                </svg>
+                            </div>
+                            <p class="text-xs text-gray-500">Value</p>
+                            <p class="font-semibold text-gray-800">${product.value}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            productGrid.append(productCard);
+        });
+    }
+
+    // Update metrics based on period
+    function updateMetrics(period) {
+        const data = dummyData[period];
+        if (!data) return;
+        
+        const totalOutput = data.reduce((sum, item) => sum + parseInt(item.quantity), 0);
+        const totalValue = data.reduce((sum, item) => {
+            const value = parseInt(item.value.replace(/[$,]/g, ''));
+            return sum + value;
+        }, 0);
+        
+        $('#totalOutput').text(totalOutput.toLocaleString());
+        $('#totalValue').text(`$${totalValue.toLocaleString()}`);
+        $('#activeUnits').text(data.length);
+    }
+
+    // Initialize with daily data
+    $(document).ready(function() {
+        renderProductGrid(dummyData.daily);
+        updateMetrics('daily');
+        
+        // Time period filter buttons
+        $('#dailyBtn').click(function() {
+            currentPeriod = 'daily';
+            renderProductGrid(dummyData.daily);
+            updateMetrics('daily');
+            $('.time-filter-btn').removeClass('active-tab');
+            $(this).addClass('active-tab');
+        });
+        
+        $('#weeklyBtn').click(function() {
+            currentPeriod = 'weekly';
+            renderProductGrid(dummyData.weekly);
+            updateMetrics('weekly');
+            $('.time-filter-btn').removeClass('active-tab');
+            $(this).addClass('active-tab');
+        });
+        
+        $('#monthlyBtn').click(function() {
+            currentPeriod = 'monthly';
+            renderProductGrid(dummyData.monthly);
+            updateMetrics('monthly');
+            $('.time-filter-btn').removeClass('active-tab');
+            $(this).addClass('active-tab');
+        });
+
+        // Custom filter modal
+        $('#customFilterBtn').click(function() {
+            $('#filterModal').removeClass('hidden');
+        });
+        
+        $('#closeModal').click(function() {
+            $('#filterModal').addClass('hidden');
+        });
+        
+        $('#cancelFilter, #cancelDateFilter').click(function() {
+            $('#filterModal').addClass('hidden');
+        });
+
+        // Tab switching
+        $('#monthTab').click(function() {
+            $('#monthTabContent').show();
+            $('#dateRangeTabContent').hide();
+            $('#monthTab').addClass('active-tab');
+            $('#dateRangeTab').removeClass('active-tab');
+        });
+        
+        $('#dateRangeTab').click(function() {
+            $('#monthTabContent').hide();
+            $('#dateRangeTabContent').show();
+            $('#dateRangeTab').addClass('active-tab');
+            $('#monthTab').removeClass('active-tab');
+        });
+
+        // Apply month filter
+        $('#applyMonthFilter').click(function() {
+            const month = $('#monthSelect').val();
+            const year = $('#yearSelect').val();
+            currentFilter = { type: 'month', month, year };
+            
+            // Show success message (you can replace with actual API call)
+            alert(`Filter bulan ${$('#monthSelect option:selected').text()} ${year} telah diterapkan`);
+            $('#filterModal').addClass('hidden');
+        });
+
+        // Apply date range filter
+        $('#applyDateFilter').click(function() {
+            const startDate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+            currentFilter = { type: 'dateRange', startDate, endDate };
+            
+            // Show success message
+            alert(`Filter tanggal ${startDate} sampai ${endDate} telah diterapkan`);
+            $('#filterModal').addClass('hidden');
+        });
     });
 </script>
 @endsection
