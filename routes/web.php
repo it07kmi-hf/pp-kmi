@@ -21,6 +21,9 @@ use App\Http\Controllers\FinishingTargetPerformanceController;
 use App\Http\Controllers\FinishingLaporanController;
 
 
+use App\Http\Controllers\CaseGoodAssemblingController;
+
+
 use App\Http\Controllers\TestSAPController;
 
 Route::get('/sap/plopro', [TestSAPController::class, 'getPloPro']);
@@ -160,6 +163,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/devisiassembling/laporan-periode', [DevisiAssemblingLaporanController::class, 'index'])
         ->middleware('role:devisiassembling')
         ->name('devisiassembling.laporan.periode');
+
+    // Tambahan Dashboard untuk Case Good Assembling
+    Route::get('/devisiassembling/casegoodd1', [CaseGoodAssemblingController::class, 'caseGoodD1'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.casegoodd1');
+    Route::get('/devisiassembling/casegoodd2', [CaseGoodAssemblingController::class, 'caseGoodD2'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.casegoodd2');
+    Route::get('/devisiassembling/casegoodd3', [CaseGoodAssemblingController::class, 'caseGoodD3'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.casegoodd3');
+    Route::get('/devisiassembling/casegoodd4', [CaseGoodAssemblingController::class, 'caseGoodD4'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.casegoodd4');
 
 
         

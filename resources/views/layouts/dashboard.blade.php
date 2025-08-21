@@ -89,27 +89,76 @@
                             <div class="sidebar-text text-sm font-semibold text-gray-500 uppercase mb-2 mt-6">UNIT PRODUKSI</div>
                             
                             <!-- Casegood Items -->
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
+                            <!-- <li>
+                                <a href="{{ route('devisiassembling.casegoodd1') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.casegoodd1')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif"">
                                     <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
                                     <span class="sidebar-text text-sm">Casegood D1</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('devisiassembling.casegoodd2') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
                                     <span class="sidebar-text text-sm">Casegood D2</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('devisiassembling.casegoodd3') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
                                     <span class="sidebar-text text-sm">Casegood D3</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('devisiassembling.casegoodd4') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
+                                    <span class="sidebar-text text-sm">Casegood D4</span>
+                                </a>
+                            </li> -->
+                            <li>
+                                <a href="{{ route('devisiassembling.casegoodd1') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.casegoodd1')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
+                                    <span class="sidebar-text text-sm">Casegood D1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.casegoodd2') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.casegoodd2')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-box w-5"></i>
+                                    <span class="sidebar-text text-sm">Casegood D2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.casegoodd3') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.casegoodd3')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-box w-5"></i>
+                                    <span class="sidebar-text text-sm">Casegood D3</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.casegoodd4') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.casegoodd4')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-box w-5"></i>
                                     <span class="sidebar-text text-sm">Casegood D4</span>
                                 </a>
                             </li>
