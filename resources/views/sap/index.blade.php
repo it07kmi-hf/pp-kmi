@@ -6,6 +6,9 @@
 <div class="container mx-auto my-8 px-2 sm:px-4">
     <h2 class="text-2xl font-bold text-center mb-6">📊 Data PLOPRO dari SAP</h2>
 
+    <!-- Notifikasi -->
+    <div id="notif" class="hidden fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50"></div>
+
     <div class="overflow-x-auto max-h-[600px] border border-gray-300 rounded-lg shadow-md">
         <table class="min-w-full divide-y divide-gray-200 table-auto">
             <thead class="bg-gray-800 text-white sticky top-0">
@@ -33,7 +36,6 @@
             <tbody class="bg-white divide-y divide-gray-200 text-xs sm:text-sm">
                 @forelse($dbData as $index => $row)
                     <tr>
-                        <!-- Nomor urut baris -->
                         <td class="px-2 py-1 text-center">{{ $dbData->firstItem() + $index }}</td>
                         <td class="px-2 py-1 text-center">{{ $row->no }}</td>
                         <td class="px-2 py-1">{{ $row->product }}</td>
@@ -49,9 +51,9 @@
                         <td class="px-2 py-1 text-right">{{ $row->qty_delivery }}</td>
                         <td class="px-2 py-1 text-right">{{ $row->outstanding }}</td>
                         <td class="px-2 py-1 text-center">{{ $row->uom }}</td>
-                        <td class="px-2 py-1 text-center">{{ optional($row->start_date)->format('Y-m-d') }}</td>
-                        <td class="px-2 py-1 text-center">{{ optional($row->finish_date)->format('Y-m-d') }}</td>
-                        <td class="px-2 py-1 text-center">{{ optional($row->create_on)->format('Y-m-d') }}</td>
+                        <td class="px-2 py-1 text-center">{{ $row->start_date }}</td>
+                        <td class="px-2 py-1 text-center">{{ $row->finish_date }}</td>
+                        <td class="px-2 py-1 text-center">{{ $row->create_on }}</td>
                     </tr>
                 @empty
                     <tr>
@@ -72,7 +74,14 @@
     // Sinkron SAP di background tiap 60 detik
     setInterval(() => {
         axios.get('/sap/update')
-            .then(res => console.log('SAP sync background done'))
+            .then(res => {
+                if (res.data.newData > 0) {
+                    let notif = document.getElementById('notif');
+                    notif.innerText = res.data.newData + " data baru berhasil ditambahkan 🚀";
+                    notif.classList.remove('hidden');
+                    setTimeout(() => notif.classList.add('hidden'), 4000);
+                }
+            })
             .catch(err => console.error(err));
     }, 60000);
 </script>

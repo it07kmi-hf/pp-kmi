@@ -2,20 +2,107 @@
 @section('title', 'Dashboard Assembling')
 @section('page-title', 'Dashboard Monitoring Assembling')
 @section('content')
+<style>
+    .active-period {
+        background-color: #6B7280 !important;
+        color: white !important;
+    }
+    .filter-tab-btn.active {
+        background-color: #10B981 !important;
+        color: white !important;
+        border-color: #10B981 !important;
+    }
+    .filter-tab-btn {
+        transition: all 0.2s ease;
+    }
+</style>
+
 <div class="space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-xl font-semibold text-gray-800">Assembling Monitoring</h1>
         <div class="flex space-x-2">
-            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="dailyBtn">Harian</button>
-            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="weeklyBtn">Mingguan</button>
-            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200" id="monthlyBtn">Bulanan</button>
-            <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200 flex items-center gap-1" id="customFilterBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-                Filter Periode Khusus
-            </button>
+            <button class="px-4 py-1 text-sm rounded-full bg-white border border-gray-200 active-period" id="dailyBtn">Harian</button>
+            <button class="px-4 py-1 text-sm rounded-full bg-white border border-gray-200" id="weeklyBtn">Mingguan</button>
+            <button class="px-4 py-1 text-sm rounded-full bg-white border border-gray-200" id="monthlyBtn">Bulanan</button>
+            
+            <div class="relative">
+                <button class="px-3 py-1 text-sm rounded-md bg-white border border-gray-200 flex items-center gap-1" id="customFilterBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Filter Periode Khusus
+                </button>
+                
+                <!-- Custom Filter Dropdown -->
+                <div id="filterDropdown" class="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 hidden">
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-800 mb-2">Filter Periode Khusus</h3>
+                        <p class="text-sm text-gray-600 mb-4">Analisa data periode tertentu</p>
+                        
+                        <!-- Filter Type Tabs -->
+                        <div class="flex mb-4">
+                            <button id="monthTabBtn" class="filter-tab-btn px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 bg-green-100 text-green-800">
+                                Bulan Spesifik
+                            </button>
+                            <button id="dateRangeTabBtn" class="filter-tab-btn px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 border-l-0 text-gray-600 hover:bg-gray-50">
+                                Range Tanggal
+                            </button>
+                        </div>
+                        
+                        <!-- Bulan Spesifik Content -->
+                        <div id="monthDropdownContent" class="filter-content">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Bulan</label>
+                                    <select id="monthSelectDropdown" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                                        <option value="january">Januari</option>
+                                        <option value="february">Februari</option>
+                                        <option value="march">Maret</option>
+                                        <option value="april">April</option>
+                                        <option value="may">Mei</option>
+                                        <option value="june">Juni</option>
+                                        <option value="july">Juli</option>
+                                        <option value="august" selected>Agustus</option>
+                                        <option value="september">September</option>
+                                        <option value="october">Oktober</option>
+                                        <option value="november">November</option>
+                                        <option value="december">Desember</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tahun</label>
+                                    <select id="yearSelectDropdown" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025" selected>2025</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Range Tanggal Content -->
+                        <div id="dateRangeDropdownContent" class="filter-content hidden">
+                            <div class="space-y-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai</label>
+                                    <input type="date" id="startDateDropdown" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Akhir</label>
+                                    <input type="date" id="endDateDropdown" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex justify-end space-x-2 pt-4 border-t border-gray-200">
+                            <button id="cancelCustomFilter" class="px-4 py-2 text-gray-600 text-sm hover:bg-gray-50 rounded-md">Batal</button>
+                            <button id="applyCustomFilter" class="px-4 py-2 bg-green-500 text-white text-sm rounded-md hover:bg-green-600">Terapkan Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -74,85 +161,6 @@
     </div>
 </div>
 
-<!-- Custom Filter Modal -->
-<div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-medium text-gray-800">Filter Periode Khusus</h3>
-            <button id="closeModal" class="text-gray-400 hover:text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        
-        <p class="text-sm text-gray-600 mb-4">Analisa data periode tertentu</p>
-        
-        <!-- Tab Navigation -->
-        <div class="flex border-b mb-4">
-            <button class="py-2 px-4 text-sm font-medium text-green-600 border-b-2 border-green-600 active-tab" id="monthTab">Bulan Spesifik</button>
-            <button class="py-2 px-4 text-sm font-medium text-gray-500" id="dateRangeTab">Range Tanggal</button>
-        </div>
-        
-        <!-- Bulan Spesifik Tab Content -->
-        <div id="monthTabContent" class="tab-content">
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Bulan</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="monthSelect">
-                        <option value="january">Januari</option>
-                        <option value="february">Februari</option>
-                        <option value="march">Maret</option>
-                        <option value="april">April</option>
-                        <option value="may">Mei</option>
-                        <option value="june">Juni</option>
-                        <option value="july">Juli</option>
-                        <option value="august" selected>Agustus</option>
-                        <option value="september">September</option>
-                        <option value="october">Oktober</option>
-                        <option value="november">November</option>
-                        <option value="december">Desember</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="yearSelect">
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025" selected>2025</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="flex space-x-3 mt-6">
-                <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors" id="applyMonthFilter">Terapkan Filter</button>
-                <button id="cancelFilter" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">Batal</button>
-            </div>
-        </div>
-        
-        <!-- Date Range Tab Content -->
-        <div id="dateRangeTabContent" class="tab-content hidden">
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="startDate">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" id="endDate">
-                </div>
-            </div>
-            
-            <div class="flex space-x-3 mt-6">
-                <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors" id="applyDateFilter">Terapkan Filter</button>
-                <button id="cancelDateFilter" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">Batal</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     // Dummy data for different time periods
     const dummyData = {
@@ -187,6 +195,7 @@
 
     let currentPeriod = 'daily';
     let currentFilter = null;
+    let currentFilterType = 'month';
 
     // Initialize product grid
     function renderProductGrid(data) {
@@ -257,74 +266,95 @@
             currentPeriod = 'daily';
             renderProductGrid(dummyData.daily);
             updateMetrics('daily');
-            $('.time-filter-btn').removeClass('active-tab');
-            $(this).addClass('active-tab');
+            $('.px-4.py-1.text-sm.rounded-full.bg-white.border.border-gray-200').not('#customFilterBtn').removeClass('active-period');
+            $(this).addClass('active-period');
         });
         
         $('#weeklyBtn').click(function() {
             currentPeriod = 'weekly';
             renderProductGrid(dummyData.weekly);
             updateMetrics('weekly');
-            $('.time-filter-btn').removeClass('active-tab');
-            $(this).addClass('active-tab');
+            $('.px-4.py-1.text-sm.rounded-full.bg-white.border.border-gray-200').not('#customFilterBtn').removeClass('active-period');
+            $(this).addClass('active-period');
         });
         
         $('#monthlyBtn').click(function() {
             currentPeriod = 'monthly';
             renderProductGrid(dummyData.monthly);
             updateMetrics('monthly');
-            $('.time-filter-btn').removeClass('active-tab');
-            $(this).addClass('active-tab');
+            $('.px-4.py-1.text-sm.rounded-full.bg-white.border.border-gray-200').not('#customFilterBtn').removeClass('active-period');
+            $(this).addClass('active-period');
         });
 
-        // Custom filter modal
-        $('#customFilterBtn').click(function() {
-            $('#filterModal').removeClass('hidden');
-        });
-        
-        $('#closeModal').click(function() {
-            $('#filterModal').addClass('hidden');
-        });
-        
-        $('#cancelFilter, #cancelDateFilter').click(function() {
-            $('#filterModal').addClass('hidden');
+        // Custom filter dropdown
+        $('#customFilterBtn').click(function(e) {
+            e.stopPropagation();
+            $('#filterDropdown').toggleClass('hidden');
         });
 
-        // Tab switching
-        $('#monthTab').click(function() {
-            $('#monthTabContent').show();
-            $('#dateRangeTabContent').hide();
-            $('#monthTab').addClass('active-tab');
-            $('#dateRangeTab').removeClass('active-tab');
-        });
-        
-        $('#dateRangeTab').click(function() {
-            $('#monthTabContent').hide();
-            $('#dateRangeTabContent').show();
-            $('#dateRangeTab').addClass('active-tab');
-            $('#monthTab').removeClass('active-tab');
+        // Close dropdown when clicking outside
+        $(document).click(function(event) {
+            if (!$(event.target).closest('#customFilterBtn, #filterDropdown').length) {
+                $('#filterDropdown').addClass('hidden');
+            }
         });
 
-        // Apply month filter
-        $('#applyMonthFilter').click(function() {
-            const month = $('#monthSelect').val();
-            const year = $('#yearSelect').val();
-            currentFilter = { type: 'month', month, year };
+        // Tab switching for dropdown
+        $('#monthTabBtn').click(function() {
+            currentFilterType = 'month';
+            $('#monthDropdownContent').removeClass('hidden');
+            $('#dateRangeDropdownContent').addClass('hidden');
+            $('.filter-tab-btn').removeClass('bg-green-100 text-green-800').addClass('text-gray-600 hover:bg-gray-50');
+            $(this).removeClass('text-gray-600 hover:bg-gray-50').addClass('bg-green-100 text-green-800');
+        });
+        
+        $('#dateRangeTabBtn').click(function() {
+            currentFilterType = 'dateRange';
+            $('#monthDropdownContent').addClass('hidden');
+            $('#dateRangeDropdownContent').removeClass('hidden');
+            $('.filter-tab-btn').removeClass('bg-green-100 text-green-800').addClass('text-gray-600 hover:bg-gray-50');
+            $(this).removeClass('text-gray-600 hover:bg-gray-50').addClass('bg-green-100 text-green-800');
+        });
+
+        // Cancel custom filter
+        $('#cancelCustomFilter').click(function() {
+            $('#filterDropdown').addClass('hidden');
+        });
+
+        // Apply custom filter
+        $('#applyCustomFilter').click(function() {
+            if (currentFilterType === 'month') {
+                const month = $('#monthSelectDropdown').val();
+                const year = $('#yearSelectDropdown').val();
+                currentFilter = { type: 'month', month, year };
+                
+                // Show success message
+                alert(`Filter bulan ${$('#monthSelectDropdown option:selected').text()} ${year} telah diterapkan`);
+            } else if (currentFilterType === 'dateRange') {
+                const startDate = $('#startDateDropdown').val();
+                const endDate = $('#endDateDropdown').val();
+                
+                if (startDate && endDate) {
+                    if (new Date(startDate) > new Date(endDate)) {
+                        alert('Tanggal mulai tidak boleh lebih besar dari tanggal selesai');
+                        return;
+                    }
+                    
+                    currentFilter = { type: 'dateRange', startDate, endDate };
+                    alert(`Filter tanggal ${startDate} sampai ${endDate} telah diterapkan`);
+                } else {
+                    alert('Mohon isi tanggal mulai dan tanggal selesai');
+                    return;
+                }
+            }
             
-            // Show success message (you can replace with actual API call)
-            alert(`Filter bulan ${$('#monthSelect option:selected').text()} ${year} telah diterapkan`);
-            $('#filterModal').addClass('hidden');
-        });
-
-        // Apply date range filter
-        $('#applyDateFilter').click(function() {
-            const startDate = $('#startDate').val();
-            const endDate = $('#endDate').val();
-            currentFilter = { type: 'dateRange', startDate, endDate };
+            $('#filterDropdown').addClass('hidden');
             
-            // Show success message
-            alert(`Filter tanggal ${startDate} sampai ${endDate} telah diterapkan`);
-            $('#filterModal').addClass('hidden');
+            // Highlight custom filter button temporarily
+            $('#customFilterBtn').addClass('bg-blue-100 border-blue-300 text-blue-700');
+            setTimeout(() => {
+                $('#customFilterBtn').removeClass('bg-blue-100 border-blue-300 text-blue-700');
+            }, 2000);
         });
     });
 </script>

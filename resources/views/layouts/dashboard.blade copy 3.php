@@ -75,64 +75,50 @@
                         @endif
                         {{-- DEVISI ASSEMBLING --}}
                         @if(auth()->user()->role == 'devisiassembling')
-                            <!-- Dashboard Overview -->
                             <li>
                                 <a href="{{ route(auth()->user()->role.'.dashboard') }}"
-                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
-                                    <i class="fas fa-chart-line w-5"></i> {{-- Ikon dashboard --}}
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-home w-5"></i>
                                     <span class="sidebar-text fade-slide show text-sm">Dashboard Overview</span>
                                 </a>
                             </li>
-
                             <!-- Unit Produksi Section -->
-                            <div class="sidebar-text text-sm font-semibold text-gray-500 uppercase mb-2 mt-6">UNIT PRODUKSI</div>
-                            
-                            <!-- Casegood Items -->
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D4</span>
-                                </a>
-                            </li>
-                            
-                            <!-- Other Production Units -->
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-chair w-5"></i> {{-- Ikon kursi --}}
-                                    <span class="sidebar-text text-sm">Chair</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-cogs w-5"></i> {{-- Ikon mesin/logam --}}
-                                    <span class="sidebar-text text-sm">Metal</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-futbol w-5"></i> {{-- Ikon lapangan --}}
-                                    <span class="sidebar-text text-sm">Playfield</span>
-                                </a>
-                            </li>
+                            <div id="unit-produksi-section" class="mb-2">
+                                <p class="text-sm font-semibold text-gray-500 uppercase mb-2">UNIT PRODUKSI</p>
+                                <li>
+                                    <a href="{{ route('devisiassembling.monitoring.produksi') }}"
+                                       class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                       @if(request()->routeIs('devisiassembling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                        <i class="fas fa-chart-line w-5"></i>
+                                        <span class="sidebar-text fade-slide show text-sm">Monitoring Produksi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('devisiassembling.report.buyer') }}"
+                                       class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                       @if(request()->routeIs('devisiassembling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                        <i class="fas fa-users w-5"></i>
+                                        <span class="sidebar-text fade-slide show text-sm">Report per Buyer</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('devisiassembling.target.performance') }}"
+                                       class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                       @if(request()->routeIs('devisiassembling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                        <i class="fas fa-bullseye w-5"></i>
+                                        <span class="sidebar-text fade-slide show text-sm">Target & Performance</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('devisiassembling.laporan.periode') }}"
+                                       class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                       @if(request()->routeIs('devisiassembling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                        <i class="fas fa-calendar-alt w-5"></i>
+                                        <span class="sidebar-text fade-slide show text-sm">Laporan Periode</span>
+                                    </a>
+                                </li>
+                            </div>
                         @endif
                         {{-- FINISHING --}}
                         @if(auth()->user()->role == 'finishing')
@@ -190,9 +176,9 @@
                         <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
                     </div>
                 </div>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" class="mt-2">
                     @csrf
-                    <button type="submit" class="flex items-center space-x-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg px-3 py-2 mt-2">
+                    <button type="submit" class="flex items-center space-x-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg px-3 py-2">
                         <i class="fas fa-sign-out-alt w-5"></i>
                         <span class="logout-text sidebar-text fade-slide show">Keluar</span>
                     </button>
@@ -244,6 +230,7 @@
             $('#sidebar-overlay').removeClass('hidden');
         });
         
+        // Close mobile sidebar when overlay is clicked
         $('#sidebar-overlay').click(function() {
             $('#sidebar').addClass('-translate-x-full');
             $('#sidebar-overlay').addClass('hidden');
@@ -256,23 +243,30 @@
             if (sidebarCollapsed) {
                 $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
                 
-                // // Hide sidebar texts but keep the unit produksi text visible
-                // $('.sidebar-text:not(#unit-produksi)').removeClass('show');
-                // setTimeout(() => {
-                //     $('.sidebar-text:not(#unit-produksi)').hide();
-                // }, 300);
-                $('.sidebar-text').removeClass('show');
+                // Hide sidebar text elements except for logo and user info
+                $('.sidebar-text:not(#logo-text)').removeClass('show');
                 setTimeout(() => {
-                    $('.sidebar-text').hide();
+                    $('.sidebar-text:not(#logo-text)').hide();
                 }, 300);
+                
+                // Hide unit produksi section
+                $('#unit-produksi-section').hide();
                 
                 $(this).find('i').removeClass('fa-bars').addClass('fa-xmark');
             } else {
                 $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
                 
-                // Show sidebar texts including unit produksi
-                $('.sidebar-text').show();
-                $('.sidebar-text').each(function(i, el) {
+                // Show sidebar text elements with animation
+                $('.sidebar-text:not(#logo-text)').show();
+                $('.sidebar-text:not(#logo-text)').each(function(i, el) {
+                    setTimeout(() => {
+                        $(el).addClass('show');
+                    }, i * 100);
+                });
+                
+                // Show unit produksi section
+                $('#unit-produksi-section').show();
+                $('#unit-produksi-section').children('.sidebar-text').each(function(i, el) {
                     setTimeout(() => {
                         $(el).addClass('show');
                     }, i * 100);
@@ -293,13 +287,13 @@
                     $('#sidebar').removeClass('lg:w-20').addClass('lg:w-64');
                     $('#toggle-sidebar-collapse').find('i').removeClass('fa-xmark').addClass('fa-bars');
                     
-                    // Ensure all sidebar texts are shown
-                    $('.sidebar-text').show();
-                    $('.sidebar-text').each(function(i, el) {
-                        setTimeout(() => {
-                            $(el).addClass('show');
-                        }, i * 100);
-                    });
+                    // Restore visibility of text elements
+                    $('.sidebar-text:not(#logo-text)').show();
+                    $('.sidebar-text:not(#logo-text)').addClass('show');
+                    
+                    // Restore unit produksi section
+                    $('#unit-produksi-section').show();
+                    $('#unit-produksi-section').children('.sidebar-text').addClass('show');
                 }
             } else if (currentWidth < 1024) {
                 // Mobile view

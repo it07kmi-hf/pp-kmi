@@ -75,62 +75,46 @@
                         @endif
                         {{-- DEVISI ASSEMBLING --}}
                         @if(auth()->user()->role == 'devisiassembling')
-                            <!-- Dashboard Overview -->
                             <li>
                                 <a href="{{ route(auth()->user()->role.'.dashboard') }}"
-                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
-                                    <i class="fas fa-chart-line w-5"></i> {{-- Ikon dashboard --}}
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs(auth()->user()->role.'.dashboard')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-home w-5"></i>
                                     <span class="sidebar-text fade-slide show text-sm">Dashboard Overview</span>
                                 </a>
                             </li>
-
-                            <!-- Unit Produksi Section -->
-                            <div class="sidebar-text text-sm font-semibold text-gray-500 uppercase mb-2 mt-6">UNIT PRODUKSI</div>
-                            
-                            <!-- Casegood Items -->
+                            <!-- Teks Unit Produksi -->
+                            <div id="unit-produksi" class="text-sm font-semibold text-gray-500 uppercase mb-2">UNIT PRODUKSI</div>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D1</span>
+                                <a href="{{ route('devisiassembling.monitoring.produksi') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.monitoring.produksi')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-chart-line w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Monitoring Produksi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D2</span>
+                                <a href="{{ route('devisiassembling.report.buyer') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.report.buyer')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-users w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Report per Buyer</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D3</span>
+                                <a href="{{ route('devisiassembling.target.performance') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.target.performance')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-bullseye w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Target & Performance</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D4</span>
-                                </a>
-                            </li>
-                            
-                            <!-- Other Production Units -->
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-chair w-5"></i> {{-- Ikon kursi --}}
-                                    <span class="sidebar-text text-sm">Chair</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-cogs w-5"></i> {{-- Ikon mesin/logam --}}
-                                    <span class="sidebar-text text-sm">Metal</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-futbol w-5"></i> {{-- Ikon lapangan --}}
-                                    <span class="sidebar-text text-sm">Playfield</span>
+                                <a href="{{ route('devisiassembling.laporan.periode') }}"
+                                   class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                   @if(request()->routeIs('devisiassembling.laporan.periode')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif">
+                                    <i class="fas fa-calendar-alt w-5"></i>
+                                    <span class="sidebar-text fade-slide show text-sm">Laporan Periode</span>
                                 </a>
                             </li>
                         @endif
@@ -256,14 +240,10 @@
             if (sidebarCollapsed) {
                 $('#sidebar').removeClass('lg:w-64').addClass('lg:w-20');
                 
-                // // Hide sidebar texts but keep the unit produksi text visible
-                // $('.sidebar-text:not(#unit-produksi)').removeClass('show');
-                // setTimeout(() => {
-                //     $('.sidebar-text:not(#unit-produksi)').hide();
-                // }, 300);
-                $('.sidebar-text').removeClass('show');
+                // Hide sidebar texts but keep the unit produksi text visible
+                $('.sidebar-text:not(#unit-produksi)').removeClass('show');
                 setTimeout(() => {
-                    $('.sidebar-text').hide();
+                    $('.sidebar-text:not(#unit-produksi)').hide();
                 }, 300);
                 
                 $(this).find('i').removeClass('fa-bars').addClass('fa-xmark');
