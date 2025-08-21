@@ -178,6 +178,16 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:devisiassembling')
         ->name('devisiassembling.casegoodd4');
 
+    Route::get('/devisiassembling/chair', [CaseGoodAssemblingController::class, 'chair'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.chair');
+    Route::get('/devisiassembling/metal', [CaseGoodAssemblingController::class, 'metal'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.metal');
+    Route::get('/devisiassembling/playfield', [CaseGoodAssemblingController::class, 'playfield'])
+        ->middleware('role:devisiassembling')
+        ->name('devisiassembling.playfield');
+
 
         
     // ================= FINISHING =================

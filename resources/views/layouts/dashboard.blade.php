@@ -164,7 +164,46 @@
                             </li>
                             
                             <!-- Other Production Units -->
+
                             <li>
+                                <a href="{{ route('devisiassembling.chair') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.chair')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-chair w-5"></i> {{-- Ikon kursi --}}
+                                    <span class="sidebar-text text-sm">Chair</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.metal') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.metal')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-cogs w-5"></i> {{-- Ikon mesin/logam --}}
+                                    <span class="sidebar-text text-sm">Metal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('devisiassembling.playfield') }}" 
+                                class="flex items-center space-x-3 rounded-lg px-3 py-2 
+                                        @if(request()->routeIs('devisiassembling.playfield')) 
+                                            bg-green-50 text-green-700 font-semibold 
+                                        @else 
+                                            text-gray-700 hover:bg-gray-100 
+                                        @endif">
+                                    <i class="fas fa-futbol w-5"></i> {{-- Ikon lapangan --}}
+                                    <span class="sidebar-text text-sm">Playfield</span>
+                                </a>
+                            </li>
+
+
+                            <!-- <li>
                                 <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-chair w-5"></i> {{-- Ikon kursi --}}
                                     <span class="sidebar-text text-sm">Chair</span>
@@ -181,7 +220,7 @@
                                     <i class="fas fa-futbol w-5"></i> {{-- Ikon lapangan --}}
                                     <span class="sidebar-text text-sm">Playfield</span>
                                 </a>
-                            </li>
+                            </li> -->
                         @endif
                         {{-- FINISHING --}}
                         @if(auth()->user()->role == 'finishing')

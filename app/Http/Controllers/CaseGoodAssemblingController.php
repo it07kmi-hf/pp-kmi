@@ -23,4 +23,16 @@ class CaseGoodAssemblingController extends Controller
     {
         return view('dashboard.devisiassembling.casegoodd4');
     }
+    public function chair()
+    {
+        return view('dashboard.devisiassembling.chair');
+    }
+    public function metal()
+    {
+        return view('dashboard.devisiassembling.metal');
+    }
+    public function playfield()
+    {
+        return view('dashboard.devisiassembling.playfield');
+    }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title', 'Dashboard Assembling')
-@section('page-title', 'Dashboard Monitoring Assembling')
+@section('title', 'Dashboard Metal - Assembling')
+@section('page-title', 'Dashboard Monitoring Metal')
 @section('content')
 <style>
     .card-shadow {
@@ -24,7 +24,7 @@
     <!-- Header -->
     <div class="flex justify-between items-start mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Casegood D1 - Detail Produksi</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Metal - Detail Produksi</h1>
             <p class="text-gray-600">Divisi Assembling - PT. KAYUMEBEL INDONESIA</p>
         </div>
         <div class="text-right">
@@ -157,7 +157,7 @@
     <div class="bg-white rounded-lg card-shadow p-4 mb-6">
         <div class="flex items-center mb-4">
             <i class="fas fa-cubes mr-2 text-gray-500"></i>
-            <span class="font-medium text-gray-700">Detail Work Center - Casegood D1</span>
+            <span class="font-medium text-gray-700">Detail Work Center - Metal</span>
             <span class="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full" id="period-badge">Harian</span>
         </div>
         
@@ -171,7 +171,7 @@
                     <div>
                         <div class="flex items-center">
                             <i class="fas fa-box mr-2 text-gray-500"></i>
-                            <span class="font-medium">Casegood D1</span>
+                            <span class="font-medium">Metal</span>
                             <span class="ml-2 text-sm text-gray-500">6 Work Centers</span>
                         </div>
                     </div>
