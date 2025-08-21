@@ -75,7 +75,6 @@
                         @endif
                         {{-- DEVISI ASSEMBLING --}}
                         @if(auth()->user()->role == 'devisiassembling')
-                            <!-- Dashboard Overview -->
                             <li>
                                 <a href="{{ route(auth()->user()->role.'.dashboard') }}"
                                 class="flex items-center space-x-3 rounded-lg px-3 py-2 
@@ -85,35 +84,7 @@
                                 </a>
                             </li>
 
-                            <!-- Unit Produksi Section -->
                             <div class="sidebar-text text-sm font-semibold text-gray-500 uppercase mb-2 mt-6">UNIT PRODUKSI</div>
-                            
-                            <!-- Casegood Items -->
-                            <!-- <li>
-                                <a href="{{ route('devisiassembling.casegoodd1') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 
-                                   @if(request()->routeIs('devisiassembling.casegoodd1')) bg-green-50 text-green-700 font-semibold @else text-gray-700 hover:bg-gray-100 @endif"">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('devisiassembling.casegoodd2') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('devisiassembling.casegoodd3') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('devisiassembling.casegoodd4') }}" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-box w-5"></i> {{-- Ikon kotak --}}
-                                    <span class="sidebar-text text-sm">Casegood D4</span>
-                                </a>
-                            </li> -->
                             <li>
                                 <a href="{{ route('devisiassembling.casegoodd1') }}" 
                                 class="flex items-center space-x-3 rounded-lg px-3 py-2 
@@ -163,8 +134,6 @@
                                 </a>
                             </li>
                             
-                            <!-- Other Production Units -->
-
                             <li>
                                 <a href="{{ route('devisiassembling.chair') }}" 
                                 class="flex items-center space-x-3 rounded-lg px-3 py-2 
@@ -201,26 +170,6 @@
                                     <span class="sidebar-text text-sm">Playfield</span>
                                 </a>
                             </li>
-
-
-                            <!-- <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-chair w-5"></i> {{-- Ikon kursi --}}
-                                    <span class="sidebar-text text-sm">Chair</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-cogs w-5"></i> {{-- Ikon mesin/logam --}}
-                                    <span class="sidebar-text text-sm">Metal</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-futbol w-5"></i> {{-- Ikon lapangan --}}
-                                    <span class="sidebar-text text-sm">Playfield</span>
-                                </a>
-                            </li> -->
                         @endif
                         {{-- FINISHING --}}
                         @if(auth()->user()->role == 'finishing')
@@ -268,6 +217,24 @@
                     </ul>
                 </div>
             </nav>
+            <!-- <div class="mt-auto p-4 border-t border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-white text-sm"></i>
+                    </div>
+                    <div class="user-info sidebar-text fade-slide show">
+                        <p class="text-sm font-medium text-gray-800">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-gray-500">{{ ucfirst(auth()->user()->role) }}</p>
+                    </div>
+                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="flex items-center space-x-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg px-3 py-2 mt-2">
+                        <i class="fas fa-sign-out-alt w-5"></i>
+                        <span class="logout-text sidebar-text fade-slide show">Keluar</span>
+                    </button>
+                </form>
+            </div> -->
             <div class="mt-auto p-4 border-t border-gray-200">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
@@ -285,6 +252,17 @@
                         <span class="logout-text sidebar-text fade-slide show">Keluar</span>
                     </button>
                 </form>
+
+                <!-- Developer Info -->
+                @php
+                    $dev = include base_path('developer/info.php');
+                @endphp
+
+                <div class="mt-3 px-3">
+                    <p class="text-xs text-gray-500 sidebar-text fade-slide show">
+                        {{ $dev['role'] }} : <span class="font-medium text-gray-700">{{ $dev['name'] }}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
